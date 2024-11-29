@@ -28,10 +28,10 @@ Player.prototype.getTierLevel = function(){
     }
 }
 /*
-*8.feladat
+*8.feladat átalakítva
 */
-function PrintTierLevel(nickname, tierLevel){
-    console.log(nickname, tierLevel);
+function PrintTierLevel(player){
+    console.log(player.nickname, player.getTierLevel());
 }
 /*
 *9.feladat
@@ -40,4 +40,4 @@ const player = new Player("player1")
 player.play();
 player.play();
 player.play();
-PrintTierLevel(player.nickname, player.getTierLevel());
+PrintTierLevel(player);
