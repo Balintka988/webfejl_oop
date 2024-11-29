@@ -69,8 +69,8 @@ player.play();
 console.log(player.getTierLevel());
 
 class Person {
-    constructor(){
-        this.name = "Géza";
+    constructor(name){
+        this.name = name;
     }
 
     getName(){
@@ -79,14 +79,17 @@ class Person {
 }
 
 class Student{
-    constructor(school){
+    constructor(school, name){
         this.school = school;
+        Person.call(this, name);
     }
 }
 
 Object.setPrototypeOf(Student.prototype, Person.prototype);
 
-const person1 = new Person("géza");
+const person1 = new Person("Géza");
 
 console.log(person1.getName());
+
+
 
