@@ -67,7 +67,7 @@ player.play();
 player.play();
 player.play();
 console.log(player.getTierLevel());
-
+//-----------------------------Itthoni------------------
 class Person {
     constructor(name){
         this.name = name;
@@ -78,18 +78,16 @@ class Person {
     }
 }
 
-class Student{
+class Student extends Person{
     constructor(school, name){
+        super(name);
         this.school = school;
-        Person.call(this, name);
     }
 }
 
-Object.setPrototypeOf(Student.prototype, Person.prototype);
 
-const person1 = new Person("Géza");
+const student1 = new Student("bolyai", "Géza");
 
-console.log(person1.getName());
-
-
+console.log(student1.getName());
+console.log(student1.school);
 
