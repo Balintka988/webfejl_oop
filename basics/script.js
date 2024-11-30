@@ -91,3 +91,36 @@ const student1 = new Student("bolyai", "Géza");
 console.log(student1.getName());
 console.log(student1.school);
 
+class Animal {
+    constructor(name){
+        this.name = name;
+    }
+    sound(){
+        console.log(`${this.name} képes hangot kiadni`);
+    }
+}
+
+class Bird extends Animal{
+    constructor(name){
+        super(name);
+    }
+    repul(){
+        console.log(`${this.name} repül`);
+    }
+}
+
+class Mammal extends Animal{
+    constructor(name){
+        super(name);
+    }
+    seta(){
+        console.log(`${this.name} tud sétálni`);
+    }
+}
+const madar1 = new Bird("cinege");
+madar1.sound();
+madar1.repul();
+
+const emlos1 = new Mammal("macska");
+emlos1.sound();
+emlos1.seta();
