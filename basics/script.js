@@ -34,18 +34,25 @@
 //    console.log(player.nickname, player.getTierLevel());
 //}
 
+/**
+ * a player osztály egy játékost hoz létre, neki vagy egy nickname-e, számoljuk azt, hogy 
+ * hány meccset játszott és ez alapján megnézzük hogy milyen szinten van(tier)
+ */
 class Player{
 
     constructor(nickname){
         this.nickname = nickname;
-        this.playedMatch = 0;
+        this.playedMatch = 0;//itt adjuk meg hogy egyenlőre nem játszott meccset
     }
 
-    play () {
+    play () {//ez a metódus mindig amikor meg lesz hívva hozzáad 1et a playedMatch-hez
         this.playedMatch++;
-        console.log(this.nickname, this.playedMatch);
+        console.log(this.nickname, this.playedMatch);//kiirja a nevet és az aktuális meccsek számát
     }
-
+    /**
+     * //itt ellenőrizzük hogy milyen tierbe fog kerülni a játékosunk, a playedMatchet vetjük össze egy számmal
+     * @returns {"A"|"B"|"C"} A szintek nevei
+     */
     getTierLevel (){
         if(this.playedMatch <= 3){
             return "A";
@@ -57,30 +64,43 @@ class Player{
             return "C"
         }
     }
+    PrintTierLevel(){//egyszerű minden meghívásnál
+        console.log(this.nickname, this.getTierLevel());
+    }
 }
 
+
 /*
-*9.feladat
+*9.feladat: player osztálynak egy példányát hozzuk itt létre
 */
 const player = new Player("player1")
 player.play();
 player.play();
 player.play();
 console.log(player.getTierLevel());
+player.PrintTierLevel();
 //-----------------------------Itthoni------------------
+/*
+*Egy osztályt csinálunk ami eltárolja egy személy nevét és később iskoláját is
+*/
 class Person {
     constructor(name){
         this.name = name;
     }
-
+    /**
+     *A személy nevét itt adja vissza
+    * @returns {string}
+    */
     getName(){
         return this.name;
     }
 }
-
+/**
+ * Egy bővített osztály ami már az iskolát is tárolja és a Person osztályt bővíti, annak a leszármazottja
+ */
 class Student extends Person{
     constructor(school, name){
-        super(name);
+        super(name);//meghívjuk annak az osztálynak a konstruktorát amiből származik(ősosztályt)
         this.school = school;
     }
 }
