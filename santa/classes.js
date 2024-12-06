@@ -20,6 +20,10 @@ class Companion{
     }
 
     getName(){//nem kell neki parameter mert látja a példány paraméterét
+        return this.vezeteknev + " " + this.keresztnev;
+    }
 
+    addProduct(product){
+        this.productList.push(product);
     }
 }
