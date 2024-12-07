@@ -9,6 +9,12 @@ function createRow(companion){
     const tableRow = document.createElement('tr');
     tbody.appendChild(tableRow);
 
+    const nameCell = createCell(tableRow);
+    nameCell.innerHTML = companion.getName();
+
+    const reszlegCell = createCell(tableRow);
+    reszlegCell.innerHTML = companion.reszleg;
+
    // TODO 7
 
     const action = createCell(tableRow)
@@ -70,13 +76,18 @@ function refreshProductList(companion){ //TODO
  * 
  * @param {HTMLFormElement} form 
  */
-function addCompanion(form){ //TODO 
+function addCompanion(form, factory){ //TODO 
     const firstName =form.querySelector('#cfirstname')
     const lastname =form.querySelector('#clastname')
     const area = form.querySelector('#carea')
     const firstNameValue = firstName.value;
     const lastNameValue = lastname.value;
     const areaValue = area.value;
+
+    const getId = factory.generateId();
+    const newCompanion = new Companion(getId, firstNameValue, lastNameValue, areaValue);
+    factory.addMano(newCompanion);
+
     // TODO 6
 }
 

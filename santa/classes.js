@@ -6,7 +6,11 @@ class Factory {
     }
     addMano(mano){//bemeneti paraméterként manót vár amit majd hozzátesz a manolist tulajdonsághoz
         this.manoList.push(mano);//a pushnak azért van mano paramétere mert azt töltjük fel a listába
+        createRow(mano);
     }
+    generateId(){
+        return this.manoList.length;// Az uj id a manoList aktualis hosszaval lesz egyenlo 
+    }    
 }
 
 class Companion{
