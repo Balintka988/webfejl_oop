@@ -2,16 +2,31 @@
 class Factory {
  // TODO 1, 2, 3, 4, 9, 10
     constructor(){
-        this.manoList = [] //factory példányának lesz manolist tulajdonsága
+        this.manoList = [] //factory példányának lesz manoList tulajdonsága
     }
     addMano(mano){//bemeneti paraméterként manót vár amit majd hozzátesz a manolist tulajdonsághoz
         this.manoList.push(mano);//a pushnak azért van mano paramétere mert azt töltjük fel a listába
         createRow(mano);
+        appendToSelector(mano);
     }
     generateId(){
         return this.manoList.length;// Az uj id a manoList aktualis hosszaval lesz egyenlo 
     }
-    
+    showProducts(id){
+        for(let i = 0; i < this.manoList.length; i++){// Végigmegyünk a manoList összes elemén
+            if(this.manoList[i].id == id){// Ha a jelenlegi elem id-je megegyezik a megadott id-vel akkor:
+                refreshProductList(this.manoList[i]);// Meghívjuk a refreshProductList függvényt, hogy frissítse az adott companion terméklistáját
+            }
+        }
+    }
+    productsToMano(product, id){
+        for(let i = 0; i < this.manoList.length; i++){// Végigmegyünk a manoList összes elemén
+            if(this.manoList[i].id == id){
+                this.manoList[i].addProduct(product);// Hozzáadjuk a megadott terméket a companion terméklistájához
+                this.showProducts(this.manoList[i].id);// Frissítjük a terméklistát a companion azonosítójával
+            }
+        }
+    }
 }
 
 class Companion{

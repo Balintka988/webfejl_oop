@@ -72,5 +72,7 @@ initTable()
 function checkEventListener(e){
     const row = e.currentTarget.parentElement.parentElement;
     const companionId = row.id;
+
+    factory.showProducts(companionId);// Meghívja a factory példányhoz tartozó showProducts metódust az adott companionIdvel
     // TODO 10
 }
