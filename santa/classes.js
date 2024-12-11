@@ -10,7 +10,8 @@ class Factory {
     }
     generateId(){
         return this.manoList.length;// Az uj id a manoList aktualis hosszaval lesz egyenlo 
-    }    
+    }
+    
 }
 
 class Companion{

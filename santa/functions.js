@@ -15,6 +15,7 @@ function createRow(companion){
     const reszlegCell = createCell(tableRow);
     reszlegCell.innerHTML = companion.reszleg;
 
+    tbody.id = companion.id;//minden sorhoz hozzárendeljük a companion id-ját
    // TODO 7
 
     const action = createCell(tableRow)
