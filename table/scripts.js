@@ -46,7 +46,6 @@ class Person{
         else{
             td1.colSpan = 2;
         }
-        
     }
 }
 
@@ -58,3 +57,26 @@ function init(){
     }
 }
 init();
+
+
+class formController{
+    #form
+    constructor(form){
+        this.#form = form;
+    }
+    #getInputById(id){
+        return this.#form.querySelector('#' + id);
+    }
+    get lastname(){
+        const getId = this.#getInputById('lastname');
+        return getId.value;
+    }
+    get firstname1(){
+        const getId = this.#getInputById('firstname1');
+        return getId.value;
+    }
+    get firstname2(){
+        const getId = this.#getInputById('firstname2');
+        return getId.value;
+    }
+}
