@@ -15,6 +15,16 @@ class ArrayList{
         this.#state = {};
     }
 
+    Contains(item){
+        for(const variable in this.#state){
+            if(this.#state[variable] === item){
+                return true;
+            }
+        }
+        return false;
+        
+    }
+
     Add (item){
         //hossz megnövelése
         //objektum beletétele 
@@ -33,7 +43,8 @@ class ArrayList{
             set: function(value){
                 this.#state[index] = value;
             },
-            writable: true
+            //writable: true,
+            enumerable: true
         })
 
 
@@ -44,20 +55,40 @@ class ArrayList{
     Clear(){
         this.#length = 0;
         this.#state = {};
+        for (const kulcs in this){
+            delete this[kulcs];
+        }
     }
 
 
 }
-const kakas = {};
-Object.defineProperty(kakas, "nev", {
-    value: "Géza",
-    writable: true
-})
-kakas.nev = 'asd';
-console.log(kakas);
+const list = new ArrayList();
 
-const pers = {};
-pers.a = 'Ferenc';
-pers['a'] = 'józsi';
-pers[0] = 'tojás';
-console.log(pers);
+const nev1 = {nev: "péter"};
+const nev2 = {nev: "Lajos"};
+const szam1 = {szam: 5};
+const szam2 = {szam: 3};
+
+list.Add(nev1);
+list.Add(nev2);
+list.Add(szam1);
+
+console.log(list.Contains(nev1)); // true
+console.log(list.Contains(nev2)); // true
+console.log(list.Contains(szam1)); // true
+console.log(list.Contains(szam2)); // false
+
+
+//const kakas = {};
+//Object.defineProperty(kakas, "nev", {
+//    value: "Géza",
+//    writable: true
+//})
+//kakas.nev = 'asd';
+//console.log(kakas);
+//
+//const pers = {};
+//pers.a = 'Ferenc';
+//pers['a'] = 'józsi';
+//pers[0] = 'tojás';
+//console.log(pers);
