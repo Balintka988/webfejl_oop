@@ -37,10 +37,10 @@ class ArrayList{
 
         //az aktuális indexel szeretnénék elérni (pl.:array[0]) az aktális elemet a hozzáadott példányon keresztül
         Object.defineProperty(this, index, {
-            get: function(){
+            get: () => {
                 return this.#state[index];
             },
-            set: function(value){
+            set: (value) => {
                 this.#state[index] = value;
             },
             //writable: true,
