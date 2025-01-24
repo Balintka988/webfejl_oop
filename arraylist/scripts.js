@@ -47,7 +47,6 @@ class ArrayList{
             enumerable: true
         })
 
-
         //3.inkrementáljuk a length tulajdonságot
         this.#length++;
     }
@@ -92,3 +91,43 @@ console.log(list.Contains(szam2)); // false
 //pers['a'] = 'józsi';
 //pers[0] = 'tojás';
 //console.log(pers);
+
+class ArrayHTMLElement extends HTMLElement{
+    #tbody
+    constructor(){
+        super(); 
+    }
+    connectedCallback(){
+        const table = document.createElement('table');
+        this.appendChild(table);
+
+        const thead = document.createElement('thead');
+        table.appendChild(thead);
+
+        this.#tbody = document.createElement('tbody');
+        table.appendChild(this.#tbody);
+    }
+
+    /**
+     * 
+     * @param {{nev:string, eletkor:Number}} item 
+     */
+    addPersonRow(item){
+        const tr = document.createElement('tr')
+        this.#tbody.appendChild(tr)
+
+        const td1 = document.createElement('td');
+        td1.innerHTML = item.nev;
+        tr.appendChild(td1);
+
+        const td2 = document.createElement('td');
+        td2.innerHTML = item.eletkor;
+        tr.appendChild(td2);
+    }
+}
+customElements.define('array-table', ArrayHTMLElement)
+const arrayTable = new ArrayHTMLElement();
+document.body.appendChild(arrayTable);
+
+
+arrayTable.addPersonRow({nev: "geza", eletkor:14})
