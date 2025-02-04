@@ -68,6 +68,7 @@ class Datamanager{
 
 
 class Datatable{
+    #tbody;//a tbody-nkat egy privát tulajdonságban eltároltuk
     /**
      * @param {Datamanager} datamanager
      */
@@ -75,35 +76,44 @@ class Datatable{
         const table = document.createElement('table');
         document.body.appendChild(table);
 
-        const tbody = document.createElement('tbody');
-        table.appendChild(tbody);
+        this.#tbody = document.createElement('tbody');
+        table.appendChild(this.#tbody);
 
         datamanager.setUpdateCallback((persons) => {
-
-            tbody.innerHTML = '';
-
-            for (const pers of persons){
-                const tr = document.createElement('tr');
-                tbody.appendChild(tr);
-                
-                const td1 = document.createElement("td");
-                td1.innerHTML = pers.nev;
-                tr.appendChild(td1);
-
-                const td2 = document.createElement("td");
-                td2.innerHTML = pers.eletkor;
-                tr.appendChild(td2);
-            }
-
+            this.#renderTable(persons);
         })
     }
+    
+    #renderTable(persons){
+        this.#tbody.innerHTML = '';
+        for (const pers of persons){
+            const tr = document.createElement('tr');
+            this.#tbody.appendChild(tr);
+            
+            const td1 = document.createElement("td");
+            td1.innerHTML = pers.nev;
+            tr.appendChild(td1);
+
+            const td2 = document.createElement("td");
+            td2.innerHTML = pers.eletkor;
+            tr.appendChild(td2);
+        }
+    }
 }
-const datamanager = new Datamanager([{eletkor:14, nev:"Gipszjakab"}]);
+const datamanager = new Datamanager([{eletkor:28, nev:"Gipszjakab"}, {eletkor:2, nev:"Gabika"},{eletkor:21, nev:"Celine"},{eletkor:23, nev:"Albert"}, {eletkor:32, nev:"Adél"},]);
 const datatable = new Datatable(datamanager)
 
-const input = document.createElement("input");
-document.body.appendChild(input);
+const input1 = document.createElement("input");
+document.body.appendChild(input1);
 
-input.addEventListener('input', function(e){
-    
-})
+const input2 = document.createElement("input");
+document.body.appendChild(input2);
+
+input1.addEventListener('input', (e) =>{
+    datamanager.filterName(input1.value);
+});
+
+input2.addEventListener('input', (e) =>{
+    const age_input = Number(input2.value);//meghívtuk a Number konstruktorát az input string értékével
+    datamanager.filterAge(age_input);
+});
