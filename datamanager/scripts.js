@@ -36,20 +36,9 @@ class Datamanager{
      */
     add(item){
         this.#array.push(item);
+        this.#updateCallback(this.#array)
     }
-    /**
-     * 
-     * @param {Number} age 
-     */
-    filterAge(age){
-        const age_result = [];
-        for(const elem of this.#array){
-            if(elem.eletkor === age){
-                age_result.push(elem);
-            }
-        }
-        this.#updateCallback(age_result);
-    }
+    
     /**
      * 
      * @param {String} eletkor 
@@ -63,7 +52,39 @@ class Datamanager{
         }
         this.#updateCallback(name_result);
     }
-    
+    /**
+     * 
+     * @param {function(Person): boolean} callback 
+     * 
+     */
+    filter(callback){
+        const age_result = [];
+        for(const elem of this.#array){
+            if(callback(elem)){
+                age_result.push(elem);
+            }
+        }
+        this.#updateCallback(age_result);
+    }
+
+    orderByAge(){
+        const result = []
+        for(const i of this.#array){
+            result.push(i);
+        }
+        for(let i =0; i < result.length-1; i++){
+            for(let j = i + 1; j<result.length; j++){
+                if(result[i].eletkor < result[j]){
+                    const tmp = result[j];
+                    result[i] = result[j];
+                    result[j] = tmp;
+                }
+            }
+        }
+    }
+    orderByName(){
+
+    }
 }
 
 
@@ -115,5 +136,35 @@ input1.addEventListener('input', (e) =>{
 
 input2.addEventListener('input', (e) =>{
     const age_input = Number(input2.value);//meghívtuk a Number konstruktorát az input string értékével
-    datamanager.filterAge(age_input);
+    datamanager.filter((pers) => {
+        return pers.eletkor === age_input;
+    });
 });
+
+
+//------------Új órai--------------------
+const input3 = document.createElement("input");
+document.body.appendChild(input3);
+input3.type = "file";
+
+input3.addEventListener('change', (e) =>{
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsText(file);
+    reader.onload = (e) =>{//
+        //e.currentTarget
+        const fileContent = reader.result;
+        console.log(fileContent);
+
+        const splitting = fileContent.split("\n");
+        for(const split of splitting){
+            const split_by_coma = split.split(";");
+            const pers = {
+                nev: split_by_coma[0],
+                eletkor: Number(split_by_coma[1])
+            }
+            datamanager.add(pers);
+        }
+    };
+});
+
