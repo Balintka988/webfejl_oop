@@ -74,16 +74,30 @@ class Datamanager{
         }
         for(let i =0; i < result.length-1; i++){
             for(let j = i + 1; j<result.length; j++){
-                if(result[i].eletkor < result[j]){
-                    const tmp = result[j];
+                if(result[i].eletkor < result[j].eletkor){
+                    const tmp = result[i];
                     result[i] = result[j];
                     result[j] = tmp;
                 }
             }
         }
+        this.#updateCallback(result);
     }
-    orderByName(){
-
+    orderByName() {
+        const result = []
+        for(const i of this.#array){
+            result.push(i);
+        }
+        for (let i =0; i < result.length - 1; i++) {
+            for (let j = i + 1; j< result.length; j++) {
+                if (result[i].nev.localeCompare(result[j].nev) < 0) {
+                    const tmp = result[i];
+                    result[i] = result[j];
+                    result[j] = tmp;
+                }
+            }
+        }
+        this.#updateCallback(result);
     }
 }
 
@@ -96,6 +110,30 @@ class Datatable{
     constructor(datamanager){
         const table = document.createElement('table');
         document.body.appendChild(table);
+
+        // Létrehozzuk a thead elemet
+        const thead = document.createElement('thead');
+        table.appendChild(thead);
+
+        const headerRow = document.createElement('tr');
+        thead.appendChild(headerRow);
+        //------------------------------------------------------------------
+        const thName = document.createElement('th');//th html elem létrehozása
+        thName.innerHTML = 'Név';//név stringet megadjuk a th elem belső tartalmának
+        headerRow.appendChild(thName);//hozzáadjuk a fejléc sorához
+
+        thName.addEventListener('click', () => {//eseménykezelőt csatolunk a név cellájára, kattintással aktiválódik
+            datamanager.orderByName();//meghívjuk a datamanager orderByName metódusát
+        });
+
+        const thAge = document.createElement('th');
+        thAge.innerHTML = 'Életkor';
+        headerRow.appendChild(thAge);
+
+        thAge.addEventListener('click', () => {
+            datamanager.orderByAge();
+        });
+        //------------------------------------------------------------------
 
         this.#tbody = document.createElement('tbody');
         table.appendChild(this.#tbody);
@@ -149,7 +187,7 @@ input3.type = "file";
 
 input3.addEventListener('change', (e) =>{
     const file = e.target.files[0];
-    const reader = new FileReader();
+    const reader = new FileReader(); //példányosítottuk a FileReader beépített osztályunkat
     reader.readAsText(file);
     reader.onload = (e) =>{//
         //e.currentTarget
