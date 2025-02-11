@@ -29,6 +29,7 @@ class Datamanager{
     setUpdateCallback(callback){
         this.#updateCallback = callback;
         this.#updateCallback(this.#array)
+        
     }
     /**
      * 
@@ -67,30 +68,47 @@ class Datamanager{
         this.#updateCallback(age_result);
     }
 
-    orderByAge(){
+    //orderByAge(){
+    //    const result = []
+    //    for(const i of this.#array){
+    //        result.push(i);
+    //    }
+    //    for(let i =0; i < result.length-1; i++){
+    //        for(let j = i + 1; j<result.length; j++){
+    //            if(result[i].eletkor < result[j].eletkor){
+    //                const tmp = result[i];
+    //                result[i] = result[j];
+    //                result[j] = tmp;
+    //            }
+    //        }
+    //    }
+    //    this.#updateCallback(result);
+    //}
+    //orderByName() {
+    //    const result = []
+    //    for(const i of this.#array){
+    //        result.push(i);
+    //    }
+    //    for (let i =0; i < result.length - 1; i++) {
+    //        for (let j = i + 1; j< result.length; j++) {
+    //            if (result[i].nev.localeCompare(result[j].nev) < 0) {
+    //                const tmp = result[i];
+    //                result[i] = result[j];
+    //                result[j] = tmp;
+    //            }
+    //        }
+    //    }
+    //    this.#updateCallback(result);
+    //}
+
+    orderBy(compareCallback) {
         const result = []
         for(const i of this.#array){
             result.push(i);
         }
-        for(let i =0; i < result.length-1; i++){
-            for(let j = i + 1; j<result.length; j++){
-                if(result[i].eletkor < result[j].eletkor){
-                    const tmp = result[i];
-                    result[i] = result[j];
-                    result[j] = tmp;
-                }
-            }
-        }
-        this.#updateCallback(result);
-    }
-    orderByName() {
-        const result = []
-        for(const i of this.#array){
-            result.push(i);
-        }
-        for (let i =0; i < result.length - 1; i++) {
-            for (let j = i + 1; j< result.length; j++) {
-                if (result[i].nev.localeCompare(result[j].nev) < 0) {
+        for(let i = 0; i < result.length - 1; i++){
+            for(let j = i + 1; j < result.length; j++){
+                if(compareCallback(result[i], result[j]) > 0){
                     const tmp = result[i];
                     result[i] = result[j];
                     result[j] = tmp;
@@ -123,7 +141,7 @@ class Datatable{
         headerRow.appendChild(thName);//hozzáadjuk a fejléc sorához
 
         thName.addEventListener('click', () => {//eseménykezelőt csatolunk a név cellájára, kattintással aktiválódik
-            datamanager.orderByName();//meghívjuk a datamanager orderByName metódusát
+            datamanager.orderBy((a, b) => a.nev.localeCompare(b.nev));//meghívjuk a datamanager orderBy metódusát amely a tömböt név szerint rendezi, az "a.nev.localeCompare(b.nev)" összehasonlító függvénnyel.
         });
 
         const thAge = document.createElement('th');
@@ -131,7 +149,7 @@ class Datatable{
         headerRow.appendChild(thAge);
 
         thAge.addEventListener('click', () => {
-            datamanager.orderByAge();
+            datamanager.orderBy((a, b) => b.eletkor - a.eletkor);
         });
         //------------------------------------------------------------------
 
